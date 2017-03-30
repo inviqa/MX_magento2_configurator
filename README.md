@@ -35,7 +35,7 @@ Do also include sample files with your component that works
 ### Usage
 
 * Listing available components `bin/magento configurator:list`
-* Running individual components `bin/magento configurator:run --env="<environment>" --components="config"`
+* Running individual components `bin/magento configurator:run --env="<environment>" --component="config"`
 * Extra logs `bin/magento configurator:run --env="<environment>" -v`
 
 ## Roadmap for components to do
@@ -60,8 +60,9 @@ Do also include sample files with your component that works
 | Customers                 | :x:                | :x:                | :x:                |
 | Related Products          | :x:                | :x:                | :x:                |
 | SQL                       | :x:                | :x:                | :x:                |
-| API Roles                 | :x:                | :x:                | :x:                |
-| API Users                 | :x:                | :x:                | :x:                |
+| API Roles                 | :white_check_mark: | :grey_exclamation: | :white_check_mark: |
+| API Users                 | :white_check_mark: | :grey_exclamation: | :white_check_mark: |
+| API Integrations          | :grey_exclamation: | :x:          	  | :grey_exclamation: |
 | Shipping Table Rates      | :x:                | :x:                | :x:                |
 | Catalog Price Rules       | :x:                | :x:                | :x:                |
 | Shopping Cart Price Rules | :x:                | :x:                | :x:                |

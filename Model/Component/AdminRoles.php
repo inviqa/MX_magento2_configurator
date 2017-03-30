@@ -50,9 +50,10 @@ class AdminRoles extends YamlComponentAbstract
     }
 
     /**
-     * @param $data
+     * @param array $data
+     * @SuppressWarnings(PHPMD)
      */
-    protected function processData($data = null)
+    protected function processData(array $data = null)
     {
 
         if (isset($data['adminroles'])) {

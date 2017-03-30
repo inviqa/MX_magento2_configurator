@@ -62,7 +62,7 @@ class Websites extends YamlComponentAbstract
     }
 
 
-    protected function processData($data = null)
+    protected function processData(array $data = null)
     {
         try {
             if (!isset ($data['websites'])) {
@@ -121,8 +121,7 @@ class Websites extends YamlComponentAbstract
         $logNest = 1;
 
         try {
-
-            $this->log->logComment(sprintf("Does the website with code '%s' already exist?", $code), $logNest);
+            $this->log->logQuestion(sprintf("Does the website with code '%s' already exist?", $code), $logNest);
 
             $website = $this->websiteFactory->create();
             $website->load($code, 'code');
@@ -286,7 +285,11 @@ class Websites extends YamlComponentAbstract
 
         try {
             
+<<<<<<< HEAD
+            $this->log->logQuestion(sprintf("Does the website with code '%s' already exist?", $code), $logNest);
+=======
             $this->log->logComment(sprintf("Does the website with code '%s' already exist?", $code), $logNest);
+>>>>>>> 83e0986247b775325a46c943a003dbaefd5459c9
 
             $storeView = $this->storeFactory->create();
             $storeView->load($code, 'code');
