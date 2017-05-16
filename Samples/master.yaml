@@ -136,3 +136,8 @@ shippingtablerates:
   method: code
   sources:
     - ../configurator/ShippingTableRates/shippingtablerates.yaml
+rewrites:
+  enabled: 1
+  method: code
+  sources:
+    - ../configurator/Rewrites/rewrites.csv
