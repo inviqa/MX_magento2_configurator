@@ -87,7 +87,7 @@ Do also include sample files with your component that works
 | Shipping Table Rates      | :white_check_mark: | :white_check_mark: | :white_check_mark: |                            |  
 | Catalog Price Rules       | :x:                | :x:                | :x:                |                            |  
 | Shopping Cart Price Rules | :x:                | :x:                | :x:                |                            |  
-| Rewrites                  | :x:                | :x:                | :x:                |                            |  
+| Rewrites                  | :white_check_mark: | :white_check_mark: | :white_check_mark: |                            |  
 | Orders                    | :x:                | :x:                | :x:                |                            |  
 
 License
