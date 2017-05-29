@@ -6,6 +6,7 @@ use Magento\Authorization\Model\Role;
 use Magento\TestFramework\Helper\Bootstrap;
 use Symfony\Component\Yaml\Parser;
 use Magento\CatalogRule\Model\ResourceModel\RuleFactory;
+use Magento\CatalogRule\Api\CatalogRuleRepositoryInterface;
 
 class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +31,12 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
      *
      * @var
      */
-    private $rulesResourceModel;
+    private $catalogueRuleResourceModel;
+
+    /**
+     * @var CatalogRuleRepository
+     */
+    private $catalogueRuleRepository;
 
     public function setUp()
     {
@@ -38,11 +44,14 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
         $this->catalogPriceRulesComponent = Bootstrap::getObjectManager()
             ->get('CtiDigital\Configurator\Model\Component\CatalogPriceRules');
 
-        $ruleFactory = Bootstrap::getObjectManager()
-            ->get('Magento\CatalogRule\Model\ResourceModel\RuleFactory');
+        $this->catalogueRuleRepository = Bootstrap::getObjectManager()
+            ->get('Magento\CatalogRule\Api\CatalogRuleRepositoryInterface');
 
-        /** @var \Magento\CatalogRule\Model\Rule $rule */
-        $this->rulesResourceModel = $ruleFactory->create();
+        $this->catalogueRuleResourceModel = Bootstrap::getObjectManager()
+            ->get('\Magento\CatalogRule\Model\ResourceModel\Rule');
+
+        //fwrite(STDERR, var_dump(gettype($this->rulesResourceModel)), true);
+        //fwrite(STDERR, var_dump($this->rulesResourceModel->getMainTable()), true);
 
 
         /**
@@ -62,10 +71,22 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
         $yamlParser = new Parser();
         $testCatalogPriceRules = $yamlParser->parse(file_get_contents($this->testCatalogPriceRulesYamlPath), true);
 
+        // and some sample products
+
+        // and some customer groups
+
         // when we run the AdminRoles component
         $this->catalogPriceRulesComponent->processData($testCatalogPriceRules);
 
         // then it should enter new catalog price rules into the database
+        fwrite(STDERR, var_export(get_class_methods($this->catalogueRuleResourceModel->getMainTable()), true));
+
+        fwrite(STDERR, var_export($this->catalogueRuleResourceModel->getRulesFromProduct(
+            now(),
+            $websiteId,
+            $customerGroupId,
+            $productId
+        )));
     }
 
 }

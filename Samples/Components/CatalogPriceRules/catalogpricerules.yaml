@@ -1,0 +1,15 @@
+base:
+  -
+    customer_groups:
+      - VIP
+    name: 50% discount
+    description: 50% discount description
+    from_date: 1/1/2000
+    to_date: 01/01/2999
+    is_active: 1
+    conditions_serialized:
+    actions_serialized:
+    stop_rules_processing:
+    sort_order:
+    simple_action:
+    discount_amount: 10.00
