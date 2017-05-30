@@ -7,6 +7,7 @@ use Magento\TestFramework\Helper\Bootstrap;
 use Symfony\Component\Yaml\Parser;
 use Magento\CatalogRule\Model\ResourceModel\RuleFactory;
 use Magento\CatalogRule\Api\CatalogRuleRepositoryInterface;
+use Magento\Catalog\Model\ResourceModel\Product;
 
 class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,6 +39,11 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
      */
     private $catalogueRuleRepository;
 
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product
+     */
+    private $productResourceModel;
+
     public function setUp()
     {
         $this->testCatalogPriceRulesYamlPath = sprintf("%s/../../Samples/Components/CatalogPriceRules/catalogpricerules.yaml", __DIR__);
@@ -49,6 +55,11 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
 
         $this->catalogueRuleResourceModel = Bootstrap::getObjectManager()
             ->get('\Magento\CatalogRule\Model\ResourceModel\Rule');
+
+
+        $this->productResourceModel = Bootstrap::getObjectManager()
+            ->get('Magento\Catalog\Model\ResourceModel\Product');
+
 
         //fwrite(STDERR, var_dump(gettype($this->rulesResourceModel)), true);
         //fwrite(STDERR, var_dump($this->rulesResourceModel->getMainTable()), true);
@@ -71,22 +82,31 @@ class CatalogPriceRulesTest extends \PHPUnit_Framework_TestCase
         $yamlParser = new Parser();
         $testCatalogPriceRules = $yamlParser->parse(file_get_contents($this->testCatalogPriceRulesYamlPath), true);
 
-        // and some sample products
+        // and a sample product
+        /** @var \Magento\Catalog\Model\Product */
+        $productModel = Bootstrap::getObjectManager()
+            ->get('\Magento\Catalog\Model\Product');
 
-        // and some customer groups
+        //fwrite(STDERR, var_dump($productModel->getCollection()->getFirst(), true));
+
+        $productModel->setName("My cool product");
+        $productModel->setAttributeSetId(1);
+        $this->productResourceModel->save($productModel);
+
+        // and a customer group
 
         // when we run the AdminRoles component
         $this->catalogPriceRulesComponent->processData($testCatalogPriceRules);
 
         // then it should enter new catalog price rules into the database
-        fwrite(STDERR, var_export(get_class_methods($this->catalogueRuleResourceModel->getMainTable()), true));
+        //fwrite(STDERR, var_export(get_class_methods($this->catalogueRuleResourceModel->getMainTable()), true));
 
-        fwrite(STDERR, var_export($this->catalogueRuleResourceModel->getRulesFromProduct(
+        /**fwrite(STDERR, var_export($this->catalogueRuleResourceModel->getRulesFromProduct(
             now(),
             $websiteId,
             $customerGroupId,
             $productId
-        )));
+        )));**/
     }
 
 }
